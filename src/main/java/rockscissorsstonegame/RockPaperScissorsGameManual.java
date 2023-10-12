@@ -18,22 +18,64 @@ public class RockPaperScissorsGameManual {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-        System.out.println("Выберите ваш предмет:");
-        System.out.println("0 - Камень");
-        System.out.println("1 - Бумага");
-        System.out.println("2 - Ножницы");
-        int userChoice = scanner.nextInt();
+        int userChoice = getUserChoice(scanner);
         int computerChoice = random.nextInt(3);
+
+        printChoices(userChoice, computerChoice);
+        determineWinner(userChoice, computerChoice);
+
+        scanner.close();
+    }
+
+    private static int getUserChoice(Scanner scanner) {
+        int choice = -1;
+        do {
+            System.out.println("Выберите ваш предмет:");
+            System.out.println("0 - Камень");
+            System.out.println("1 - Бумага");
+            System.out.println("2 - Ножницы");
+            try {
+                choice = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Вы ввели некорректное значение");
+                scanner.nextLine(); // Consume invalid input
+            }
+        } while (choice < 0 || choice > 2);
+        return choice;
+    }
+
+    private static void printChoices(int userChoice, int computerChoice) {
         System.out.println("Ваш выбор: " + userChoice);
         System.out.println("Выбор компьютера: " + computerChoice);
+    }
 
+    private static void determineWinner(int userChoice, int computerChoice) {
         if (userChoice == computerChoice) {
             System.out.println("Ничья!");
-        } else if ((userChoice == 0 && computerChoice == 2) || (userChoice == 1 && computerChoice == 0) || (userChoice == 2 && computerChoice == 1)) {
-            System.out.println("Вы победили!");
         } else {
-            System.out.println("Компьютер победил!");
+            switch (userChoice) {
+                case 0:
+                    if (computerChoice == 2) {
+                        System.out.println("Вы победили!");
+                    } else {
+                        System.out.println("Компьютер победил!");
+                    }
+                    break;
+                case 1:
+                    if (computerChoice == 0) {
+                        System.out.println("Вы победили!");
+                    } else {
+                        System.out.println("Компьютер победил!");
+                    }
+                    break;
+                case 2:
+                    if (computerChoice == 1) {
+                        System.out.println("Вы победили!");
+                    } else {
+                        System.out.println("Компьютер победил!");
+                    }
+                    break;
+            }
         }
-        scanner.close();
     }
 }
