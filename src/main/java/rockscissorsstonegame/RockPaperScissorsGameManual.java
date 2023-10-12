@@ -38,7 +38,7 @@ public class RockPaperScissorsGameManual {
                 choice = scanner.nextInt();
             } catch (Exception e) {
                 System.out.println("Вы ввели некорректное значение");
-                scanner.nextLine(); // Consume invalid input
+                scanner.nextLine();
             }
         } while (choice < 0 || choice > 2);
         return choice;
