@@ -1,7 +1,6 @@
-package tictactoegame;
+package rockscissorsstonegame;
 
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Вася и Петя играют в игру “Камень,ножницы,бумага”.
