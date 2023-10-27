@@ -6,8 +6,8 @@ import java.util.Arrays;
  */
 public class AlphabetSort {
     public static void main(String[] args) {
-        String input = "hello world apple banana";
-        String[] words = input.split(" ");
+        String input = "Hello wOrLd i caNnot coDE in Java";
+        String[] words = input.toLowerCase().split(" ");
 
         for (int i = 0; i < words.length; i++) {
             char[] chars = words[i].toCharArray();
