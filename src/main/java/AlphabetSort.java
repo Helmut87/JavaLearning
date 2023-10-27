@@ -6,16 +6,16 @@ import java.util.Arrays;
  */
 public class AlphabetSort {
     public static void main(String[] args) {
-        String input = "Hello wOrLd i caNnot coDE in Java";
-        String[] words = input.toLowerCase().split(" ");
+        String inputString = "Hello wOrLd i caNnot coDE in Java";
+        String[] words = inputString.toLowerCase().split(" ");
 
         for (int i = 0; i < words.length; i++) {
             char[] chars = words[i].toCharArray();
             Arrays.sort(chars);
-            words[i] = new String(chars).toLowerCase();
+            words[i] = new String(chars);
         }
 
         String result = String.join(" ", words);
-        System.out.println(result);
+        System.out.println("Результат: " + result);
     }
 }
