@@ -28,6 +28,6 @@ public class KeyboardSymbolShift {
                 return keyboardLayout.charAt(index - 1);
             }
         }
-        return 0; // 0 означает, что такой буквы нет
+        return 0;
     }
 }
