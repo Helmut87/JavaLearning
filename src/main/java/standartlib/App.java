@@ -1,42 +1,66 @@
 package standartlib;
 
+import com.github.javafaker.Faker;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
- * 1. Создан класс  Телевизор;
- * 2. У класса  есть   поля,  свойства и методы. Поля  желательно  сделать private. Задать новые значения полям класса можно через конструктор и setters.
- * 3. В классе переопределен метод toString.
- * 4. Создан класс  App с методом main.
- * 5. В методе  main класса App создано несколько экземпляров классаТелевизор и проверено, как распечатываются заполненные данные обэкземплярах класса.
- * 6. Дополнительно. Задавать параметры класса Телевизор с клавиатурыили случайным числом.
+ * Доработать класс Телевизор:
+ * 1. В класс Телевизор добавить поля (если не были добавлены ранее):
+ * 1) Номер включенного канала — integer;
+ * 2) Громкость звука — integer (от 0 до 100);
+ * 3) Признак включенного телевизора — boolean.
+ * 2. Переопределить метод toString класса Телевизор таким образом, чтобы распечатывались:
+ * название класса, все поля класса и их значения.
+ * 3. Добавить в класс Телевизор методы equals и hashcode.
+ * На вход программы в классе App, методе main подается информация о телевизорах в количестве 10 телевизоров.
+ * Считать данные в массив объектов(можно выполнить считывание данных в цикле).
+ * В каждом из 10 экземпляров класса должны быть заполнены следующие поля:
+ * a. Как минимум, 1 поле по выбору, добавленное студентом в задании 3;
+ * b. Номер включенного канала - целое число,
+ * c. Громкость звука - целое число;
+ * d. Признак включен ли телевизор.
+ * Считать с клавиатуры число допустимого значения громкости звука maxVolume (рекомендуется ввести с клавиатуры целое число от 50 до 70).
+ * Далее необходимо в цикле вывести только включенные телевизоры, укоторых звук является допустимым (меньшим или равным maxVolume).
+ * Дополнительно. Добавить в массив Телевизоров сортировку по номеру канала (по возрастанию).
  */
 
 public class App {
     public static void main(String[] args) {
+        Television[] televisions = new Television[10];
         Scanner scanner = new Scanner(System.in);
+        Locale locale = new Locale("ru_RU");
+        Faker generateRndValue = new Faker(locale);
+        for (int i = 0; i < televisions.length; i++) {
+            String brand = generateRndValue.company().name();
+            int yearOfProduction = generateRndValue.number().numberBetween(1970, 2023);
+            int screenSize = generateRndValue.number().numberBetween(20, 50);
+            boolean isSmartTV = generateRndValue.bool().bool();
+            boolean isTVon = generateRndValue.bool().bool();
+            int channelNumber = generateRndValue.number().numberBetween(1, 100);
+            int volumeLevel = generateRndValue.number().numberBetween(0, 100);
 
-        Television tv1 = new Television("Sony", 1988, 55, true);
-        Television tv2 = new Television("Samsung", 1812, 65, false);
+            televisions[i] = new Television(brand, yearOfProduction, screenSize, isSmartTV, isTVon, channelNumber, volumeLevel);
+        }
 
-        System.out.println("Телевизор 1: " + tv1);
-        System.out.println("Телевизор 2: " + tv2);
-
-        System.out.println("Введите новое наименование для телевизора 1: ");
-        String brand1 = scanner.nextLine();
-        System.out.println("Введите новый год сборки для телевизора 1: ");
-        int yearOfProduction1 = scanner.nextInt();
-        System.out.println("Введите новый размер экрана для телевизора 1: ");
-        int screenSize1 = scanner.nextInt();
-        System.out.println("На телевизоре установлено smartTV? (true/false): ");
-        boolean isSmart1 = scanner.nextBoolean();
-
-        tv1.setBrand(brand1);
-        tv1.setYearOfProduction(yearOfProduction1);
-        tv1.setScreenSize(screenSize1);
-        tv1.setSmartTV(isSmart1);
-
-        System.out.println("Обновленные параметры для телевизора 1: " + tv1);
-
+        System.out.print("Введите максимально допустимую громкость: ");
+        int maxVolume = Integer.parseInt(scanner.nextLine());
         scanner.close();
+
+        System.out.println("Включенные телевизоры с громкостью, не превышающей " + maxVolume + ":");
+        for (Television television : televisions) {
+            if (television.getTVon() && television.getVolumeLevel() <= maxVolume) {
+                System.out.println(television);
+            }
+        }
+
+        Arrays.sort(televisions, Comparator.comparingInt(Television::getChannelNumber));
+        System.out.println("Сортировка телевизоров по номеру канала (по возрастанию):");
+        for (Television television : televisions) {
+            System.out.println(television);
+        }
     }
 }

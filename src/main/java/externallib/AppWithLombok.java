@@ -1,41 +1,46 @@
 package externallib;
-import java.util.Scanner;
+import com.github.javafaker.Faker;
+import standartlib.Television;
 
-/**
- * 1. Создан класс  Телевизор;
- * 2. У класса  есть   поля,  свойства и методы. Поля  желательно  сделать private. Задать новые значения полям класса можно через конструктор и setters.
- * 3. В классе переопределен метод toString.
- * 4. Создан класс  App с методом main.
- * 5. В методе  main класса App создано несколько экземпляров классаТелевизор и проверено, как распечатываются заполненные данные обэкземплярах класса.
- * 6. Дополнительно. Задавать параметры класса Телевизор с клавиатурыили случайным числом.
- */
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class AppWithLombok {
     public static void main(String[] args) {
+        Television[] televisions = new Television[10];
         Scanner scanner = new Scanner(System.in);
+        Locale locale = new Locale("ru_RU");
+        Faker generateRndValue = new Faker(locale);
+        for (int i = 0; i < televisions.length; i++) {
+            String brand = generateRndValue.company().name();
+            int yearOfProduction = generateRndValue.number().numberBetween(1970, 2023);
+            int screenSize = generateRndValue.number().numberBetween(20, 50);
+            boolean isSmartTV = generateRndValue.bool().bool();
+            boolean isTVon = generateRndValue.bool().bool();
+            int channelNumber = generateRndValue.number().numberBetween(1, 100);
+            int volumeLevel = generateRndValue.number().numberBetween(0, 100);
 
-        TelevisionWithLombok tv1 = new TelevisionWithLombok("Sony", 1988, 55, true);
-        TelevisionWithLombok tv2 = new TelevisionWithLombok("Samsung", 1812, 65, false);
+            televisions[i] = new Television(brand, yearOfProduction, screenSize, isSmartTV, isTVon, channelNumber, volumeLevel);
+        }
 
-        System.out.println("Телевизор 1: " + tv1);
-        System.out.println("Телевизор 2: " + tv2);
-
-        System.out.println("Введите новое наименование для телевизора 1: ");
-        String brand1 = scanner.nextLine();
-        System.out.println("Введите новый год сборки для телевизора 1: ");
-        int yearOfProduction1 = scanner.nextInt();
-        System.out.println("Введите новый размер экрана для телевизора 1: ");
-        int screenSize1 = scanner.nextInt();
-        System.out.println("На телевизоре установлено smartTV? (true/false): ");
-        boolean isSmart1 = scanner.nextBoolean();
-
-        tv1.setBrand(brand1);
-        tv1.setYearOfProduction(yearOfProduction1);
-        tv1.setScreenSize(screenSize1);
-        tv1.setIsSmartTV(isSmart1);
-
-        System.out.println("Обновленные параметры для телевизора 1: " + tv1);
-
+        System.out.print("Введите максимально допустимую громкость: ");
+        int maxVolume = Integer.parseInt(scanner.nextLine());
         scanner.close();
+
+        System.out.println("Включенные телевизоры с громкостью, не превышающей " + maxVolume + ":");
+        for (Television television : televisions) {
+            if (television.getTVon() && television.getVolumeLevel() <= maxVolume) {
+                System.out.println(television);
+            }
+        }
+
+        // Сортировка по номеру канала
+        Arrays.sort(televisions, Comparator.comparingInt(Television::getChannelNumber));
+        System.out.println("Сортировка телевизоров по номеру канала (по возрастанию):");
+        for (Television television : televisions) {
+            System.out.println(television);
+        }
     }
 }
