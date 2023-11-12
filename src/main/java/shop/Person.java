@@ -7,6 +7,13 @@ public class Person {
     private String personName;
     private int personCash;
     private ArrayList<Product> personShoppingCart;
+    private int personAge;
+
+    public Person(String personName, int personCash, int personAge) {
+        this.personName = personName;
+        this.personCash = personCash;
+        this.personAge = personAge;
+    }
 
     public String getPersonName() {
         return personName;
@@ -40,6 +47,22 @@ public class Person {
         this.personShoppingCart = personShoppingCart;
     }
 
+    public int getPersonAge() {
+        return personAge;
+    }
+
+    public void setPersonAge(int personAge) {
+        this.personAge = personAge;
+    }
+
+    //Метод для добавления продукта в корзину
+    public void addToShoppingCart(Product product) {
+        if (product == null) {
+            System.out.println("ничего не купил");
+        } else
+            personShoppingCart.add(product);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,6 +87,7 @@ public class Person {
     public String toString() {
         return "Покупатель {" +
                 "Имя покупателя: '" + personName + '\'' +
+                ", Возраст покупателя: " +
                 ", Деньги покупателя: " + personCash +
                 ", Корзина с покупками: " + personShoppingCart +
                 '}';

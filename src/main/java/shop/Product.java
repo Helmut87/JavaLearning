@@ -8,14 +8,7 @@ public class Product {
     private String productName;
     private int productPrice;
     private DiscountProduct discount;
-
-    public DiscountProduct getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(DiscountProduct discount) {
-        this.discount = discount;
-    }
+    private boolean isDiscounted;
 
     public String getProductName() {
         return productName;
@@ -41,6 +34,28 @@ public class Product {
         } else {
             this.productPrice = productPrice;
         }
+    }
+
+    public DiscountProduct getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(DiscountProduct discount) {
+        this.discount = discount;
+    }
+
+    public boolean isDiscounted() {
+        return isDiscounted;
+    }
+
+    public void setDiscounted(boolean isDiscounted) {
+        this.isDiscounted = isDiscounted;
+    }
+
+    public Product(String productName, int productPrice, DiscountProduct discount) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.discount = discount;
     }
 
     @Override
