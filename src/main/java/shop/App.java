@@ -73,8 +73,9 @@ public class App {
         for (Person person : people) {
             for (Product product : products) {
                 int priceToPay = product.getProductPrice();
-                if (product.getDiscount() != null && !product.getDiscount().getExpirationDate().isBefore(LocalDate.now())) {
-                    priceToPay -= product.getDiscount().getDiscountAmount();
+                if (product.getDiscount() != null &&
+                        !product.getDiscount().getExpirationDate().isBefore(LocalDate.now())) {
+                    priceToPay = priceToPay - product.getDiscount().getDiscountAmount();
                 }
                 if (priceToPay <= 0) {
                     priceToPay = 1;
@@ -96,7 +97,6 @@ public class App {
             } else {
                 System.out.print(person.getPersonName() + " купил : ");
                 person.getPersonShoppingCart().forEach(product -> System.out.print(product.getProductName() + ", "));
-                System.out.println();
             }
         }
     }
