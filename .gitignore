@@ -28,3 +28,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea/
+/JavaLearning.iml
+/output.txt
