@@ -59,6 +59,5 @@ public class Race {
                         ", маршрут трассы = '" + raceRoute + '\'' +
                         ", призовой фонд = " + prizeFund + " $" +
                         ", участники: " + participants;
-
     }
 }

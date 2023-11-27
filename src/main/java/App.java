@@ -5,7 +5,11 @@ import com.github.javafaker.Faker;
 import garages.Garage;
 import races.CasualRace;
 import races.Race;
+import races.TimeLimitRace;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -63,5 +67,21 @@ public class App {
                 randomValue.number().numberBetween(10000, 100000), raceParticipants);
         System.out.println("\nИнформация о гонке:");
         System.out.println(casualRace);
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src/resources/race_parameters.txt"));
+            int length = Integer.parseInt(reader.readLine());
+            String route = reader.readLine();
+            int prizePool = Integer.parseInt(reader.readLine());
+            int goldTime = Integer.parseInt(reader.readLine());
+
+            TimeLimitRace timeLimitRace = new TimeLimitRace(length, route, prizePool, raceParticipants, goldTime);
+            System.out.println("\nИнформация о гонке с лимитом времени: ");
+            System.out.println(timeLimitRace);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
 }
