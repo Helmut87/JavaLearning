@@ -30,3 +30,4 @@ bin/
 /.idea/
 /JavaLearning.iml
 /output.txt
+/target/
