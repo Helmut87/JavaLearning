@@ -1,6 +1,7 @@
 package externallib;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import standartlib.Television;
 
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class TelevisionWithLombok {
 
     private String brand;
