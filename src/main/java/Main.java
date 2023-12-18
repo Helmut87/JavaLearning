@@ -54,6 +54,6 @@ public class Main {
                                 .mapToDouble(Car::getCost)
                                 .average()
                                 .orElse(0.0)));
-        System.out.println("4) —редн€€ стоимость дл€ моделей: " + averageCostByModel);
+        System.out.println("—редн€€ стоимость дл€ моделей: " + averageCostByModel);
     }
 }
