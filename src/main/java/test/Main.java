@@ -1,3 +1,9 @@
+package test;
+
+import model.Car;
+import repository.CarsRepository;
+import repository.CarsRepositoryImpl;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -6,18 +12,26 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Car car1 = new Car("a123me", "Mercedes", "White", 0, 8300000);
-        Car car2 = new Car("b873of", "Volga", "Black", 0, 673000);
-        Car car3 = new Car("w487mn", "Lexus", "Grey", 76000, 900000);
-        Car car4 = new Car("p987hj", "Volga", "Red", 610, 704340);
-        Car car5 = new Car("c987ss", "Toyota", "White", 254000, 761000);
-        Car car6 = new Car("o983op", "Toyota", "Black", 698000, 740000);
-        Car car7 = new Car("p146op", "BMW", "White", 271000, 850000);
-        Car car8 = new Car("u893ii", "Toyota", "Purple", 210900, 440000);
-        Car car9 = new Car("l097df", "Toyota", "Black", 108000, 780000);
-        Car car10 = new Car("y876wd", "Toyota", "Black", 160000, 1000000);
+        CarsRepository carsRepository = new CarsRepositoryImpl("src/main/java/data/cars.txt");
+        List<Car> cars = carsRepository.getAllCars();
 
-        List<Car> cars = Arrays.asList(car1, car2, car3, car4, car5, car6, car7, car8, car9, car10);
+        // Если список пуст, создадим и добавим несколько автомобилей
+        if (cars.isEmpty()) {
+            Car car1 = new Car("a123me", "Mercedes", "White", 0, 8300000);
+            Car car2 = new Car("b873of", "Volga", "Black", 0, 673000);
+            Car car3 = new Car("w487mn", "Lexus", "Grey", 76000, 900000);
+            Car car4 = new Car("p987hj", "Volga", "Red", 610, 704340);
+            Car car5 = new Car("c987ss", "Toyota", "White", 254000, 761000);
+            Car car6 = new Car("o983op", "Toyota", "Black", 698000, 740000);
+            Car car7 = new Car("p146op", "BMW", "White", 271000, 850000);
+            Car car8 = new Car("u893ii", "Toyota", "Purple", 210900, 440000);
+            Car car9 = new Car("l097df", "Toyota", "Black", 108000, 780000);
+            Car car10 = new Car("y876wd", "Toyota", "Black", 160000, 1000000);
+
+            cars.addAll(Arrays.asList(car1, car2, car3, car4, car5, car6, car7, car8, car9, car10));
+
+            carsRepository.saveCars(cars);
+        }
 
         //Номера всех автомобилей, имеющих заданный цвет или нулевой пробег
         String colorToFind = "Black";
@@ -54,6 +68,6 @@ public class Main {
                                 .mapToDouble(Car::getCost)
                                 .average()
                                 .orElse(0.0)));
-        System.out.println("4) Средняя стоимость для моделей: " + averageCostByModel);
+        System.out.println("Средняя стоимость для моделей: " + averageCostByModel);
     }
 }
