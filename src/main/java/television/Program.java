@@ -11,6 +11,8 @@ public class Program {
         this.viewers = viewers;
     }
 
+    public Program() {}
+
     public String getName() {
         return name;
     }

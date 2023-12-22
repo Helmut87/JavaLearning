@@ -17,16 +17,16 @@ public class App {
     private static ArrayList<Person> inputPeopleData() {
         ArrayList<Person> people = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя пользователя (для завершения введите 'END' вместо имени покупателя):");
+        System.out.println("Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (РґР»СЏ Р·Р°РІРµСЂС€РµРЅРёСЏ РІРІРµРґРёС‚Рµ 'END' РІРјРµСЃС‚Рѕ РёРјРµРЅРё РїРѕРєСѓРїР°С‚РµР»СЏ):");
         while (true) {
-            System.out.print("Имя пользователя: ");
+            System.out.print("РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: ");
             String name = scanner.nextLine();
             if (name.equals("END")) {
                 break;
             }
             Person person = new Person();
             person.setPersonName(name);
-            System.out.print("Деньги покупателя: ");
+            System.out.print("Р”РµРЅСЊРіРё РїРѕРєСѓРїР°С‚РµР»СЏ: ");
             int cash = Integer.parseInt(scanner.nextLine());
             person.setPersonCash(cash);
             person.setPersonShoppingCart(new ArrayList<>());
@@ -58,7 +58,7 @@ public class App {
                     person.getPersonShoppingCart().add(product);
                     person.setPersonCash(person.getPersonCash() - product.getProductPrice());
                 } else {
-                    System.out.println(person.getPersonName() + " не может позволить себе " + product.getProductName());
+                    System.out.println(person.getPersonName() + " РЅРµ РјРѕР¶РµС‚ РїРѕР·РІРѕР»РёС‚СЊ СЃРµР±Рµ " + product.getProductName());
                 }
             }
         }
@@ -67,9 +67,9 @@ public class App {
     private static void displayShoppingCart(ArrayList<Person> people) {
         for (Person person : people) {
             if (person.getPersonShoppingCart().isEmpty()) {
-                System.out.println(person.getPersonName() + " - ничего не куплено");
+                System.out.println(person.getPersonName() + " - РЅРёС‡РµРіРѕ РЅРµ РєСѓРїР»РµРЅРѕ");
             } else {
-                System.out.print(person.getPersonName() + " купил : ");
+                System.out.print(person.getPersonName() + " РєСѓРїРёР» : ");
                 person.getPersonShoppingCart().forEach(product -> System.out.print(product.getProductName() + ", "));
                 System.out.println();
             }

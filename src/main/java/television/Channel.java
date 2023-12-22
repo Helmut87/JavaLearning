@@ -5,6 +5,8 @@ public class Channel {
     private int channelNumber;
     private Program program;
 
+    public Channel() {}
+
     public Channel(String name, int channelNumber, Program program) {
         this.name = name;
         this.channelNumber = channelNumber;
