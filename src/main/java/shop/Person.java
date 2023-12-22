@@ -40,6 +40,9 @@ public class Person {
         this.personShoppingCart = personShoppingCart;
     }
 
+    public Person() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

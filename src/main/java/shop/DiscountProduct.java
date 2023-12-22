@@ -12,6 +12,9 @@ public class DiscountProduct {
         this.expirationDate = expirationDate;
     }
 
+    public DiscountProduct() {
+    }
+
     public int getDiscountAmount() {
         return discountAmount;
     }

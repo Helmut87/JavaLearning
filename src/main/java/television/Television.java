@@ -50,6 +50,9 @@ public class Television {
         return currentChannel;
     }
 
+    public Television() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -8,6 +8,8 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
+    public static final int PRODUCTS_COUNT = 3;
+
     public static void main(String[] args) {
         ArrayList<Person> people = inputPeopleData();
         ArrayList<Product> products = generateRandomProductsWithDiscountAndWithoutDiscount();
@@ -18,16 +20,16 @@ public class App {
     private static ArrayList<Person> inputPeopleData() {
         ArrayList<Person> people = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя пользователя (для завершения введите 'END' вместо имени покупателя):");
+        System.out.println("Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (РґР»СЏ Р·Р°РІРµСЂС€РµРЅРёСЏ РІРІРµРґРёС‚Рµ 'END' РІРјРµСЃС‚Рѕ РёРјРµРЅРё РїРѕРєСѓРїР°С‚РµР»СЏ):");
         while (true) {
-            System.out.print("Имя пользователя: ");
+            System.out.print("РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: ");
             String name = scanner.nextLine();
             if (name.equals("END")) {
                 break;
             }
             Person person = new Person();
             person.setPersonName(name);
-            System.out.print("Деньги покупателя: ");
+            System.out.print("Р”РµРЅСЊРіРё РїРѕРєСѓРїР°С‚РµР»СЏ: ");
             int cash = Integer.parseInt(scanner.nextLine());
             person.setPersonCash(cash);
             person.setPersonShoppingCart(new ArrayList<>());
@@ -41,24 +43,23 @@ public class App {
         ArrayList<Product> products = new ArrayList<>();
         Locale locale = new Locale("ru_RU");
         Faker faker = new Faker(locale);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < PRODUCTS_COUNT; i++) {
             Product product = new Product();
             product.setProductName(faker.commerce().productName());
             product.setProductPrice(faker.number().numberBetween(1, 5000));
             products.add(product);
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < PRODUCTS_COUNT; i++) {
             Product product = new Product();
             product.setProductName(faker.commerce().productName());
             product.setProductPrice(faker.number().numberBetween(1, 5000));
 
-            // Генерация случайной скидки
             if (faker.random().nextBoolean()) {
                 int discountAmount = faker.number().numberBetween(1, 99);
                 LocalDate expirationDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30));
-                DiscountProduct discount = new DiscountProduct(discountAmount, expirationDate);
-                product.setDiscount(discount);
+                product.setDiscountAmount(discountAmount);
+                product.setDiscountExpirationDate(expirationDate);
             }
 
             products.add(product);
@@ -73,9 +74,9 @@ public class App {
         for (Person person : people) {
             for (Product product : products) {
                 int priceToPay = product.getProductPrice();
-                if (product.getDiscount() != null &&
-                        !product.getDiscount().getExpirationDate().isBefore(LocalDate.now())) {
-                    priceToPay = priceToPay - product.getDiscount().getDiscountAmount();
+                if (product.getDiscountAmount() > 0 &&
+                        !product.getDiscountExpirationDate().isBefore(LocalDate.now())) {
+                    priceToPay -= product.getDiscountAmount();
                 }
                 if (priceToPay <= 0) {
                     priceToPay = 1;
@@ -84,7 +85,7 @@ public class App {
                     person.getPersonShoppingCart().add(product);
                     person.setPersonCash(person.getPersonCash() - priceToPay);
                 } else {
-                    System.out.println(person.getPersonName() + " не может позволить себе " + product.getProductName());
+                    System.out.println(person.getPersonName() + " cannot afford " + product.getProductName());
                 }
             }
         }
@@ -93,9 +94,9 @@ public class App {
     private static void displayShoppingCart(ArrayList<Person> people) {
         for (Person person : people) {
             if (person.getPersonShoppingCart().isEmpty()) {
-                System.out.println(person.getPersonName() + " - ничего не куплено");
+                System.out.println(person.getPersonName() + " - РЅРёС‡РµРіРѕ РЅРµ РєСѓРїР»РµРЅРѕ");
             } else {
-                System.out.print(person.getPersonName() + " купил : ");
+                System.out.print(person.getPersonName() + " РєСѓРїРёР» : ");
                 person.getPersonShoppingCart().forEach(product -> System.out.print(product.getProductName() + ", "));
             }
         }

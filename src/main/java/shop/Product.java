@@ -1,5 +1,6 @@
 package shop;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static org.apache.commons.lang3.math.NumberUtils.isDigits;
@@ -7,14 +8,26 @@ import static org.apache.commons.lang3.math.NumberUtils.isDigits;
 public class Product {
     private String productName;
     private int productPrice;
-    private DiscountProduct discount;
+    private int discountAmount;
+    private LocalDate discountExpirationDate;
 
-    public DiscountProduct getDiscount() {
-        return discount;
+    public int getDiscountAmount() {
+        return discountAmount;
     }
 
-    public void setDiscount(DiscountProduct discount) {
-        this.discount = discount;
+    public void setDiscountAmount(int discountAmount) {
+        if (discountAmount < 0) {
+            throw new IllegalArgumentException("Discount amount cannot be negative.");
+        }
+        this.discountAmount = discountAmount;
+    }
+
+    public LocalDate getDiscountExpirationDate() {
+        return discountExpirationDate;
+    }
+
+    public void setDiscountExpirationDate(LocalDate discountExpirationDate) {
+        this.discountExpirationDate = discountExpirationDate;
     }
 
     public String getProductName() {
@@ -43,6 +56,9 @@ public class Product {
         }
     }
 
+    public Product() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,9 +80,9 @@ public class Product {
         sb.append("Продукты: {");
         sb.append("Наименование продукта: '").append(productName).append("'");
         sb.append(", цена продукта: ").append(productPrice);
-        if (discount != null) {
-            sb.append(", размер скидки: ").append(discount.getDiscountAmount());
-            sb.append(", срок действия скидки: ").append(discount.getExpirationDate());
+        if (discountAmount > 0 && discountExpirationDate != null) {
+            sb.append(", размер скидки: ").append(discountAmount);
+            sb.append(", срок действия скидки: ").append(discountExpirationDate);
         }
         sb.append("}");
         return sb.toString();
