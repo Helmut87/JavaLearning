@@ -11,6 +11,9 @@ public class Channel {
         this.program = program;
     }
 
+    public Channel() {
+    }
+
     public String getName() {
         return name;
     }

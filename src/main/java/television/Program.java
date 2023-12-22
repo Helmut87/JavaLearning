@@ -35,6 +35,9 @@ public class Program {
         this.viewers = viewers;
     }
 
+    public Program() {
+    }
+
     // Метод для увеличения числа зрителей
     public void increaseViewers(int amount) {
         viewers += amount;
