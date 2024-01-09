@@ -6,6 +6,11 @@ import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Метод getAllCars возвращает список всех автомобилей
+ * Метод saveCars сохраняет автомобиль
+ **/
+
 public class CarsRepositoryImpl implements CarsRepository {
     private final String fileName;
 
@@ -17,10 +22,7 @@ public class CarsRepositoryImpl implements CarsRepository {
     public List<Car> getAllCars() {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             return reader.lines()
-                    .map(line -> {
-                        String[] parts = line.split(" ");
-                        return new Car(parts[0], parts[1], parts[2], Integer.parseInt(parts[3]), Double.parseDouble(parts[4]));
-                    })
+                    .map(CarUtils::createCarFromString)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,11 +34,10 @@ public class CarsRepositoryImpl implements CarsRepository {
     public void saveCars(List<Car> cars) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Car car : cars) {
-                String line = String.format("%s %s %s %d %.2f%n", car.getCarNumber(), car.getModel(), car.getColor(), car.getMileage(), car.getCost());
-                writer.write(line);
+                writer.write(car.toString() + System.lineSeparator());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Во время сохранения автомобиля произошла ошибка! " + e);
         }
     }
 }
