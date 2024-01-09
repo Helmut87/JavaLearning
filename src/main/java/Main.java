@@ -1,33 +1,32 @@
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Car car1 = new Car("a123me", "Mercedes", "White", 0, 8300000);
-        Car car2 = new Car("b873of", "Volga", "Black", 0, 673000);
-        Car car3 = new Car("w487mn", "Lexus", "Grey", 76000, 900000);
-        Car car4 = new Car("p987hj", "Volga", "Red", 610, 704340);
-        Car car5 = new Car("c987ss", "Toyota", "White", 254000, 761000);
-        Car car6 = new Car("o983op", "Toyota", "Black", 698000, 740000);
-        Car car7 = new Car("p146op", "BMW", "White", 271000, 850000);
-        Car car8 = new Car("u893ii", "Toyota", "Purple", 210900, 440000);
-        Car car9 = new Car("l097df", "Toyota", "Black", 108000, 780000);
-        Car car10 = new Car("y876wd", "Toyota", "Black", 160000, 1000000);
+        List<Car> cars = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/cars.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                Car car = new Car(parts[0], parts[1], parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
+                cars.add(car);
+            }
+        } catch (IOException e) {
+            System.out.println("Р’Рѕ РІСЂРµРјСЏ С‡С‚РµРЅРёСЏ РёР· С„Р°Р№Р»Р° РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°: " + e);
+        }
 
-        List<Car> cars = Arrays.asList(car1, car2, car3, car4, car5, car6, car7, car8, car9, car10);
-
-        //Номера всех автомобилей, имеющих заданный цвет или нулевой пробег
+        //РќРѕРјРµСЂР° РІСЃРµС… Р°РІС‚РѕРјРѕР±РёР»РµР№, РёРјРµСЋС‰РёС… Р·Р°РґР°РЅРЅС‹Р№ С†РІРµС‚ РёР»Рё РЅСѓР»РµРІРѕР№ РїСЂРѕР±РµРі
         String colorToFind = "Black";
         int mileageToFind = 0;
         List<String> carNumbers = cars.stream()
                 .filter(car -> car.getColor().equals(colorToFind) || car.getMileage() == mileageToFind)
                 .map(Car::getCarNumber).toList();
-        System.out.println("Номера автомобилей с цветом " + colorToFind + " или нулевым пробегом: " + carNumbers);
+        System.out.println("РќРѕРјРµСЂР° Р°РІС‚РѕРјРѕР±РёР»РµР№ СЃ С†РІРµС‚РѕРј " + colorToFind + " РёР»Рё РЅСѓР»РµРІС‹Рј РїСЂРѕР±РµРіРѕРј: " + carNumbers);
 
-        //Количество уникальных моделей в ценовом диапазоне от n до m тыс.
+        //РљРѕР»РёС‡РµСЃС‚РІРѕ СѓРЅРёРєР°Р»СЊРЅС‹С… РјРѕРґРµР»РµР№ РІ С†РµРЅРѕРІРѕРј РґРёР°РїР°Р·РѕРЅРµ РѕС‚ n РґРѕ m С‚С‹СЃ.
         double n = 700000;
         double m = 800000;
         long uniqueModelsCount = cars.stream()
@@ -35,16 +34,16 @@ public class Main {
                 .map(Car::getModel)
                 .distinct()
                 .count();
-        System.out.println("Количество уникальных моделей в ценовом диапазоне от " + n + " до " + m + " тыс.: " + uniqueModelsCount);
+        System.out.println("РљРѕР»РёС‡РµСЃС‚РІРѕ СѓРЅРёРєР°Р»СЊРЅС‹С… РјРѕРґРµР»РµР№ РІ С†РµРЅРѕРІРѕРј РґРёР°РїР°Р·РѕРЅРµ РѕС‚ " + n + " РґРѕ " + m + " С‚С‹СЃ.: " + uniqueModelsCount);
 
-        //Вывести цвет автомобиля с минимальной стоимостью
+        //Р’С‹РІРµСЃС‚Рё С†РІРµС‚ Р°РІС‚РѕРјРѕР±РёР»СЏ СЃ РјРёРЅРёРјР°Р»СЊРЅРѕР№ СЃС‚РѕРёРјРѕСЃС‚СЊСЋ
         String minCostColor = cars.stream()
                 .min(Comparator.comparingDouble(Car::getCost))
                 .map(Car::getColor)
                 .orElse("Unknown");
-        System.out.println("Цвет автомобиля с минимальной стоимостью: " + minCostColor);
+        System.out.println("Р¦РІРµС‚ Р°РІС‚РѕРјРѕР±РёР»СЏ СЃ РјРёРЅРёРјР°Р»СЊРЅРѕР№ СЃС‚РѕРёРјРѕСЃС‚СЊСЋ: " + minCostColor);
 
-        //Средняя стоимость искомой модели
+        //РЎСЂРµРґРЅСЏСЏ СЃС‚РѕРёРјРѕСЃС‚СЊ РёСЃРєРѕРјРѕР№ РјРѕРґРµР»Рё
         List<String> modelsToFind = Arrays.asList("Toyota", "Volvo");
         Map<String, Double> averageCostByModel = modelsToFind.stream()
                 .collect(Collectors.toMap(
@@ -54,6 +53,6 @@ public class Main {
                                 .mapToDouble(Car::getCost)
                                 .average()
                                 .orElse(0.0)));
-        System.out.println("Средняя стоимость для моделей: " + averageCostByModel);
+        System.out.println("РЎСЂРµРґРЅСЏСЏ СЃС‚РѕРёРјРѕСЃС‚СЊ РґР»СЏ РјРѕРґРµР»РµР№: " + averageCostByModel);
     }
 }
