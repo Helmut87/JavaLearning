@@ -24,36 +24,19 @@ public class App {
         ArrayList<Product> personShoppingCart = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите данные о покупателях (для завершения введите 'END' вместо имени покупателя):");
+        System.out.println("Р’РІРµРґРёС‚Рµ РґР°РЅРЅС‹Рµ Рѕ РїРѕРєСѓРїР°С‚РµР»СЏС… (РґР»СЏ Р·Р°РІРµСЂС€РµРЅРёСЏ РІРІРµРґРёС‚Рµ 'END' РІРјРµСЃС‚Рѕ РёРјРµРЅРё РїРѕРєСѓРїР°С‚РµР»СЏ):");
         while (true) {
-            System.out.print("Имя покупателя: ");
+            System.out.print("РРјСЏ РїРѕРєСѓРїР°С‚РµР»СЏ: ");
             String name = scanner.nextLine();
             if (name.equals("END")) {
                 break;
             }
-            System.out.print("Возраст: ");
+            System.out.print("Р’РѕР·СЂР°СЃС‚: ");
             int age = Integer.parseInt(scanner.nextLine());
-            if (age >= 0 && age < 6) {
-                throw new RuntimeException("Ребенок не может покупать продукты!");
-            }
-
-            System.out.print("Деньги покупателя: ");
+            System.out.print("Р”РµРЅСЊРіРё РїРѕРєСѓРїР°С‚РµР»СЏ: ");
             int cash = Integer.parseInt(scanner.nextLine());
-
-            if (age > 6 && age <= 17) {
-                Child child = new Child(name, age, cash, personShoppingCart);
-                people.add(child);
-            } else if (age >= 18 && age <= 65) {
-                System.out.print("Может купить в кредит (true/false): ");
-                boolean canBuyOnCredit = Boolean.parseBoolean(scanner.nextLine());
-                Adult adult = new Adult(name, age, cash, canBuyOnCredit, personShoppingCart);
-                people.add(adult);
-            } else if (age >= 65) {
-                Pensioner pensioner = new Pensioner(name, age, cash, personShoppingCart);
-                people.add(pensioner);
-            } else {
-                throw new IllegalArgumentException("Некорректный возраст покупателя!");
-            }
+            Person person = AgeUtils.createPersonByAge(name, age, cash, scanner, personShoppingCart);
+            people.add(person);
         }
 
         return people;
@@ -66,7 +49,7 @@ public class App {
         for (int i = 0; i < 5; i++) {
             String productName = faker.commerce().productName();
             int productPrice = faker.number().numberBetween(1, 5000);
-            // Генерация случайной скидки
+            // Р“РµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅРѕР№ СЃРєРёРґРєРё
             DiscountProduct discount = null;
             if (faker.random().nextBoolean()) {
                 int discountAmount = faker.number().numberBetween(1, 99);
@@ -90,21 +73,21 @@ public class App {
                         !product.getDiscount().getExpirationDate().isBefore(LocalDate.now())) {
                     priceToPay = priceToPay - product.getDiscount().getDiscountAmount();
                 }
-                //Предусматриваем условие, что цена не может быть меньше 1. Поэтому ставим ее принудительно 1.
+                //РџСЂРµРґСѓСЃРјР°С‚СЂРёРІР°РµРј СѓСЃР»РѕРІРёРµ, С‡С‚Рѕ С†РµРЅР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ 1. РџРѕСЌС‚РѕРјСѓ СЃС‚Р°РІРёРј РµРµ РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ 1.
                 if (priceToPay <= 0) {
                     priceToPay = 1;
                 }
 
-                // Проверка, если покупатель - пенсионер то ему назначается дополнительная скидка
+                // РџСЂРѕРІРµСЂРєР°, РµСЃР»Рё РїРѕРєСѓРїР°С‚РµР»СЊ - РїРµРЅСЃРёРѕРЅРµСЂ С‚Рѕ РµРјСѓ РЅР°Р·РЅР°С‡Р°РµС‚СЃСЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ СЃРєРёРґРєР°
                 if (person instanceof Pensioner) {
-                    priceToPay = (int) (priceToPay * 0.95); // Дополнительная скидка для пенсионеров
+                    priceToPay = (int) (priceToPay * 0.95); // Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ СЃРєРёРґРєР° РґР»СЏ РїРµРЅСЃРёРѕРЅРµСЂРѕРІ
                 }
 
                 if (person.getPersonCash() >= priceToPay) {
                     person.getPersonShoppingCart().add(product);
                     person.setPersonCash(person.getPersonCash() - priceToPay);
                 } else {
-                    System.out.println(person.getPersonName() + " не может позволить себе " + product.getProductName());
+                    System.out.println(person.getPersonName() + " РЅРµ РјРѕР¶РµС‚ РїРѕР·РІРѕР»РёС‚СЊ СЃРµР±Рµ " + product.getProductName());
                 }
             }
         }
@@ -113,9 +96,9 @@ public class App {
     private static void displayShoppingCart(ArrayList<Person> people) {
         for (Person person : people) {
             if (person.getPersonShoppingCart().isEmpty()) {
-                System.out.println(person.getPersonName() + " - ничего не купил");
+                System.out.println(person.getPersonName() + " - РЅРёС‡РµРіРѕ РЅРµ РєСѓРїРёР»");
             } else {
-                System.out.print(person.getPersonName() + " купил : ");
+                System.out.print(person.getPersonName() + " РєСѓРїРёР» : ");
                 person.getPersonShoppingCart().forEach(product -> System.out.print(product.getProductName() + ", "));
             }
         }
