@@ -18,7 +18,7 @@ public class App {
         writer.close();
     }
 
-    private static HashMap<String, Integer> readFileData(String fileName) {
+    private static Scanner getFilePath(String fileName) {
         Scanner scanner;
         StringBuilder sb = new StringBuilder();
         try {
@@ -28,9 +28,15 @@ public class App {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return scanner;
+    }
+
+    private static HashMap<String, Integer> readFileData(String fileName) {
+        Scanner scanner;
+        scanner = getFilePath(fileName);
         HashMap<String, Integer> resultMap = new HashMap<>();
         while (scanner.hasNextLine()) {
-            String[] columns = scanner.nextLine().split(" = ");
+            String[] columns = scanner.nextLine().split("\\s=\\s");
             resultMap.put(columns[0], Integer.parseInt(columns[1]));
         }
         return resultMap;
@@ -73,13 +79,12 @@ public class App {
                     person.setPersonCash(person.getPersonCash() - product.getProductPrice());
                 } else {
                     try {
-                        writer.write(person.getPersonName() + " �� ����� ��������� ����: " +
+                        writer.write(person.getPersonName() + " не может позволить себе: " +
                                 product.getProductName() +
                                 System.getProperty("line.separator"));
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        System.out.println("При выполнении метода покупки продуктов произошла ошибка: " + e);
                     }
-
                 }
             }
         }
@@ -89,19 +94,19 @@ public class App {
         for (Person person : people) {
             if (person.getPersonShoppingCart().isEmpty()) {
                 try {
-                    writer.write(person.getPersonName() + " - ������ �� �������" + System.getProperty("line.separator"));
+                    writer.write(person.getPersonName() + " - ничего не куплено" + System.getProperty("line.separator"));
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("При выполнении метода отображения корзины продуктов произошла ошибка: " + e);
                 }
             } else {
                 String cartItems = String.join(", ", person.getPersonShoppingCart().toString());
                 cartItems = cartItems.substring(1, cartItems.length() - 1);
                 try {
-                    writer.write(person.getPersonName() + " �����: " +
+                    writer.write(person.getPersonName() + " купил: " +
                             cartItems
                             + System.getProperty("line.separator"));
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("При выполнении метода отображения корзины продуктов произошла ошибка: " + e);
                 }
             }
         }
