@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Sequence {
     public static int[] filter(int[] array, ByCondition condition) {
         int count = 0;
