@@ -1,7 +1,7 @@
 ### IntelliJ IDEA ###
-/.idea/
-/target/
-*.iml
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
 ### Eclipse ###
 .apt_generated
@@ -25,5 +25,8 @@ bin/
 ### VS Code ###
 .vscode/
 
+### Mac OS ###
+.DS_Store
+/.idea/
 /JavaLearning.iml
 /output.txt

@@ -1,41 +1,56 @@
 package shop;
 
-import com.github.javafaker.Faker;
-import shop.people.Adult;
-import shop.people.Child;
-import shop.people.Pensioner;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class App {
-    public static void main(String[] args) {
-        ArrayList<Person> people = inputPeopleData();
-        ArrayList<Product> products = generateRandomProducts();
+    private static FileWriter writer;
 
+    public static void main(String[] args) throws IOException {
+        writer = new FileWriter("output.txt");
+        ArrayList<Person> people = readPeopleDataFromFile();
+        ArrayList<Product> products = generateRandomProducts();
         purchaseProducts(people, products);
         displayShoppingCart(people);
+        writer.close();
     }
 
-    private static ArrayList<Person> inputPeopleData() {
-        ArrayList<Person> people = new ArrayList<>();
-        ArrayList<Product> personShoppingCart = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+    private static Scanner getFilePath(String fileName) {
+        Scanner scanner;
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append("src/main/resources/").append(fileName).append(".txt");
+            String filePath = sb.toString();
+            scanner = new Scanner(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return scanner;
+    }
 
-        System.out.println("Введите данные о покупателях (для завершения введите 'END' вместо имени покупателя):");
-        while (true) {
-            System.out.print("Имя покупателя: ");
-            String name = scanner.nextLine();
-            if (name.equals("END")) {
-                break;
-            }
-            System.out.print("Возраст: ");
-            int age = Integer.parseInt(scanner.nextLine());
-            System.out.print("Деньги покупателя: ");
-            int cash = Integer.parseInt(scanner.nextLine());
-            Person person = AgeUtils.createPersonByAge(name, age, cash, scanner, personShoppingCart);
+    private static HashMap<String, Integer> readFileData(String fileName) {
+        Scanner scanner;
+        scanner = getFilePath(fileName);
+        HashMap<String, Integer> resultMap = new HashMap<>();
+        while (scanner.hasNextLine()) {
+            String[] columns = scanner.nextLine().split("\\s=\\s");
+            resultMap.put(columns[0], Integer.parseInt(columns[1]));
+        }
+        return resultMap;
+    }
+
+    private static ArrayList<Person> readPeopleDataFromFile() {
+        ArrayList<Person> people = new ArrayList<>();
+        HashMap<String, Integer> mapOfPersons = readFileData("persons");
+        Set<Map.Entry<String, Integer>> set = mapOfPersons.entrySet();
+        for (Map.Entry<String, Integer> mapData : set) {
+            Person person = new Person();
+            person.setPersonName(mapData.getKey());
+            person.setPersonCash(mapData.getValue());
+            person.setPersonShoppingCart(new ArrayList<>());
             people.add(person);
         }
 
@@ -44,50 +59,32 @@ public class App {
 
     private static ArrayList<Product> generateRandomProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        Locale locale = new Locale("ru_RU");
-        Faker faker = new Faker(locale);
-        for (int i = 0; i < 5; i++) {
-            String productName = faker.commerce().productName();
-            int productPrice = faker.number().numberBetween(1, 5000);
-            // Генерация случайной скидки
-            DiscountProduct discount = null;
-            if (faker.random().nextBoolean()) {
-                int discountAmount = faker.number().numberBetween(1, 99);
-                LocalDate expirationDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30));
-                discount = new DiscountProduct(discountAmount, expirationDate);
-            }
-            Product product = new Product(productName, productPrice, discount);
+        HashMap<String, Integer> mapOfProducts = readFileData("products");
+        Set<Map.Entry<String, Integer>> set = mapOfProducts.entrySet();
+        for (Map.Entry<String, Integer> mapData : set) {
+            Product product = new Product();
+            product.setProductName(mapData.getKey());
+            product.setProductPrice(mapData.getValue());
             products.add(product);
         }
-        for (Product value : products) {
-            System.out.println(value);
-        }
+
         return products;
     }
 
     private static void purchaseProducts(ArrayList<Person> people, ArrayList<Product> products) {
         for (Person person : people) {
             for (Product product : products) {
-                int priceToPay = product.getProductPrice();
-                if (product.getDiscount() != null &&
-                        !product.getDiscount().getExpirationDate().isBefore(LocalDate.now())) {
-                    priceToPay = priceToPay - product.getDiscount().getDiscountAmount();
-                }
-                //Предусматриваем условие, что цена не может быть меньше 1. Поэтому ставим ее принудительно 1.
-                if (priceToPay <= 0) {
-                    priceToPay = 1;
-                }
-
-                // Проверка, если покупатель - пенсионер то ему назначается дополнительная скидка
-                if (person instanceof Pensioner) {
-                    priceToPay = (int) (priceToPay * 0.95); // Дополнительная скидка для пенсионеров
-                }
-
-                if (person.getPersonCash() >= priceToPay) {
+                if (person.getPersonCash() >= product.getProductPrice()) {
                     person.getPersonShoppingCart().add(product);
-                    person.setPersonCash(person.getPersonCash() - priceToPay);
+                    person.setPersonCash(person.getPersonCash() - product.getProductPrice());
                 } else {
-                    System.out.println(person.getPersonName() + " не может позволить себе " + product.getProductName());
+                    try {
+                        writer.write(person.getPersonName() + " не может позволить себе: " +
+                                product.getProductName() +
+                                System.getProperty("line.separator"));
+                    } catch (IOException e) {
+                        System.out.println("При выполнении метода покупки продуктов произошла ошибка: " + e);
+                    }
                 }
             }
         }
@@ -96,10 +93,21 @@ public class App {
     private static void displayShoppingCart(ArrayList<Person> people) {
         for (Person person : people) {
             if (person.getPersonShoppingCart().isEmpty()) {
-                System.out.println(person.getPersonName() + " - ничего не купил");
+                try {
+                    writer.write(person.getPersonName() + " - ничего не куплено" + System.getProperty("line.separator"));
+                } catch (IOException e) {
+                    System.out.println("При выполнении метода отображения корзины продуктов произошла ошибка: " + e);
+                }
             } else {
-                System.out.print(person.getPersonName() + " купил : ");
-                person.getPersonShoppingCart().forEach(product -> System.out.print(product.getProductName() + ", "));
+                String cartItems = String.join(", ", person.getPersonShoppingCart().toString());
+                cartItems = cartItems.substring(1, cartItems.length() - 1);
+                try {
+                    writer.write(person.getPersonName() + " купил: " +
+                            cartItems
+                            + System.getProperty("line.separator"));
+                } catch (IOException e) {
+                    System.out.println("При выполнении метода отображения корзины продуктов произошла ошибка: " + e);
+                }
             }
         }
     }
