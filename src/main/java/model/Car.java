@@ -1,3 +1,5 @@
+package model;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +18,6 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Автомобиль {" +
-                "номер автомобиля: '" + carNumber + '\'' +
-                ", модель: '" + model + '\'' +
-                ", цвет: '" + color + '\'' +
-                ", пробег: " + mileage +
-                ", стоимость: " + cost +
-                '}';
+        return String.format("%s %s %s %d %.2f", carNumber, model, color, mileage, cost);
     }
 }
