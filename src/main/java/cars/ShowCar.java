@@ -3,6 +3,9 @@ package cars;
 public class ShowCar extends Car {
     private int stars;
 
+    public ShowCar() {
+    }
+
     public ShowCar(String carBrand, String carModel, int carYearOfProduction, int carEnginePower, int carAccelerate, int carSuspension, int carDurability, int stars) {
         super(carBrand, carModel, carYearOfProduction, carEnginePower, carAccelerate, carSuspension, carDurability);
         this.stars = stars;
@@ -18,13 +21,13 @@ public class ShowCar extends Car {
 
     @Override
     public String toString() {
-        return "марка = '" + getCarBrand() + '\'' +
-                ", модель = '" + getCarModel() + '\'' +
-                ", год выпуска = " + getCarYearOfProduction() + " г" +
-                ", мощность двигателя = " + getCarEnginePower() + " л/с" +
-                ", разгон = " + getCarAccelerate() + " с" +
-                ", подвеска = " + getCarSuspension() + " см" +
-                ", долговечность = " + getCarDurability() + " %" +
-                ", звезд = " + stars;
+        return "РјР°СЂРєР° = '" + getCarBrand() + '\'' +
+                ", РјРѕРґРµР»СЊ = '" + getCarModel() + '\'' +
+                ", РіРѕРґ РІС‹РїСѓСЃРєР° = " + getCarYearOfProduction() + " Рі" +
+                ", РјРѕС‰РЅРѕСЃС‚СЊ РґРІРёРіР°С‚РµР»СЏ = " + getCarEnginePower() + " Р»/СЃ" +
+                ", СЂР°Р·РіРѕРЅ = " + getCarAccelerate() + " СЃ" +
+                ", РїРѕРґРІРµСЃРєР° = " + getCarSuspension() + " СЃРј" +
+                ", РґРѕР»РіРѕРІРµС‡РЅРѕСЃС‚СЊ = " + getCarDurability() + " %" +
+                ", Р·РІРµР·Рґ = " + stars;
     }
 }

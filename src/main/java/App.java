@@ -18,7 +18,7 @@ public class App {
         Locale locale = new Locale("ru_Ru");
         Faker randomValue = new Faker(locale);
 
-        // Создаем несколько автомобилей
+        // РЎРѕР·РґР°РµРј РЅРµСЃРєРѕР»СЊРєРѕ Р°РІС‚РѕРјРѕР±РёР»РµР№
         Car simpleCar = new Car("Ferrari", "F150",
                 randomValue.number().numberBetween(1950, 2023),
                 randomValue.number().numberBetween(100, 300),
@@ -32,8 +32,8 @@ public class App {
                 randomValue.number().numberBetween(3, 20),
                 randomValue.number().numberBetween(25, 100));
         ArrayList<String> addOns = new ArrayList<>();
-        addOns.add("Спортивный спойлер");
-        addOns.add("Низкопрофильная резина");
+        addOns.add("РЎРїРѕСЂС‚РёРІРЅС‹Р№ СЃРїРѕР№Р»РµСЂ");
+        addOns.add("РќРёР·РєРѕРїСЂРѕС„РёР»СЊРЅР°СЏ СЂРµР·РёРЅР°");
         performanceCar.setAddOns(addOns);
 
         ShowCar showCar = new ShowCar("Renault", "Captur",
@@ -45,13 +45,13 @@ public class App {
                 randomValue.number().numberBetween(1, 10)
         );
 
-        // Создаем гараж и добавляем автомобили
+        // РЎРѕР·РґР°РµРј РіР°СЂР°Р¶ Рё РґРѕР±Р°РІР»СЏРµРј Р°РІС‚РѕРјРѕР±РёР»Рё
         Garage garage = new Garage();
         garage.parkCar(simpleCar);
         garage.parkCar(performanceCar);
         garage.parkCar(showCar);
 
-        System.out.println("Машины на парковке в гараже:");
+        System.out.println("РњР°С€РёРЅС‹ РЅР° РїР°СЂРєРѕРІРєРµ РІ РіР°СЂР°Р¶Рµ:");
         for (Car parkedCar : garage.getParkedCars()) {
             System.out.println(parkedCar);
         }
@@ -61,11 +61,11 @@ public class App {
         raceParticipants.add(performanceCar);
         raceParticipants.add(showCar);
 
-        String routeName = "Кубок города " + randomValue.address().cityName();
+        String routeName = "РљСѓР±РѕРє РіРѕСЂРѕРґР° " + randomValue.address().cityName();
 
         Race casualRace = new CasualRace(randomValue.number().numberBetween(10, 50), routeName,
                 randomValue.number().numberBetween(10000, 100000), raceParticipants);
-        System.out.println("\nИнформация о гонке:");
+        System.out.println("\nРРЅС„РѕСЂРјР°С†РёСЏ Рѕ РіРѕРЅРєРµ:");
         System.out.println(casualRace);
 
         try {
@@ -76,10 +76,11 @@ public class App {
             int goldTime = Integer.parseInt(reader.readLine());
 
             TimeLimitRace timeLimitRace = new TimeLimitRace(length, route, prizePool, raceParticipants, goldTime);
-            System.out.println("\nИнформация о гонке с лимитом времени: ");
+            System.out.println("\nРРЅС„РѕСЂРјР°С†РёСЏ Рѕ РіРѕРЅРєРµ СЃ Р»РёРјРёС‚РѕРј РІСЂРµРјРµРЅРё: ");
             System.out.println(timeLimitRace);
             reader.close();
         } catch (IOException e) {
+            System.out.println("Р’Рѕ РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹ РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°!!!");
             e.printStackTrace();
 
         }
