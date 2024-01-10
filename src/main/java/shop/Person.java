@@ -14,7 +14,7 @@ public class Person {
 
     public void setPersonName(String personName) {
         if (Objects.equals(personName, "")) {
-            throw new IllegalArgumentException("Имя покупателя не может быть пустым!");
+            throw new IllegalArgumentException("РРјСЏ РїРѕРєСѓРїР°С‚РµР»СЏ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј!");
         } else {
             this.personName = personName;
         }
@@ -26,7 +26,7 @@ public class Person {
 
     public void setPersonCash(int personCash) {
         if (personCash < 0) {
-            throw new IllegalArgumentException("Деньги не могут быть отрицательным числом!");
+            throw new IllegalArgumentException("Р”РµРЅСЊРіРё РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј С‡РёСЃР»РѕРј!");
         } else {
             this.personCash = personCash;
         }
@@ -38,6 +38,9 @@ public class Person {
 
     public void setPersonShoppingCart(ArrayList<Product> personShoppingCart) {
         this.personShoppingCart = personShoppingCart;
+    }
+
+    public Person() {
     }
 
     @Override
@@ -62,10 +65,10 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Покупатель {" +
-                "Имя покупателя: '" + personName + '\'' +
-                ", Деньги покупателя: " + personCash +
-                ", Корзина с покупками: " + personShoppingCart +
+        return "РџРѕРєСѓРїР°С‚РµР»СЊ {" +
+                "РРјСЏ РїРѕРєСѓРїР°С‚РµР»СЏ: '" + personName + '\'' +
+                ", Р”РµРЅСЊРіРё РїРѕРєСѓРїР°С‚РµР»СЏ: " + personCash +
+                ", РљРѕСЂР·РёРЅР° СЃ РїРѕРєСѓРїРєР°РјРё: " + personShoppingCart +
                 '}';
     }
 }
