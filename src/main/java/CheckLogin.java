@@ -1,3 +1,6 @@
+import exceptions.WrongLoginException;
+import exceptions.WrongPasswordException;
+
 import java.util.Scanner;
 
 public class CheckLogin {
@@ -13,6 +16,8 @@ public class CheckLogin {
             String confirmPassword = scanner.nextLine();
 
             User.validateUser(login, password, confirmPassword);
+        } catch (Exception e) {
+            System.err.println("Произошла ошибка: " + e.getMessage());
         }
     }
 }

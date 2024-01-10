@@ -6,14 +6,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Введите данные (в произвольном порядке, разделенные пробелом)");
-            System.out.println("Необходимо ввести поля: \"ФИО\" \"дата рождения\" \"номер телефона\" \"пол\" \"возраст\"");
+            System.out.println("Р’РІРµРґРёС‚Рµ РґР°РЅРЅС‹Рµ (РІ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРј РїРѕСЂСЏРґРєРµ, СЂР°Р·РґРµР»РµРЅРЅС‹Рµ РїСЂРѕР±РµР»РѕРј)");
+            System.out.println("РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё РїРѕР»СЏ: \"Р¤РРћ\" \"РґР°С‚Р° СЂРѕР¶РґРµРЅРёСЏ\" \"РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°\" \"РїРѕР»\" \"РІРѕР·СЂР°СЃС‚\"");
             String input = scanner.nextLine();
 
             String[] inputData = input.split("\\s+");
 
             if (inputData.length != 7) {
-                throw new IllegalArgumentException("Ошибка! Неверное количество полей.");
+                throw new IllegalArgumentException("РћС€РёР±РєР°! РќРµРІРµСЂРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕР»РµР№.");
             }
 
             try {
@@ -22,13 +22,13 @@ public class Main {
                 String resourcesDirectory = "src/main/java/files/";
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(resourcesDirectory + person.getLastName() + ".txt", true))) {
                     writer.write(person + System.lineSeparator());
-                    System.out.println("Данные успешно записаны в файл.");
+                    System.out.println("Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ Р·Р°РїРёСЃР°РЅС‹ РІ С„Р°Р№Р».");
                 } catch (IOException e) {
-                    System.err.println("Ошибка записи в файл!");
+                    System.err.println("РћС€РёР±РєР° Р·Р°РїРёСЃРё РІ С„Р°Р№Р»!");
                     e.printStackTrace();
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Ошибка: Неверный формат данных.");
+                System.err.println("РћС€РёР±РєР°: РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РґР°РЅРЅС‹С….");
                 e.printStackTrace();
             }
         }
