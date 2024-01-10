@@ -5,16 +5,8 @@ import java.util.Objects;
 
 public class Person {
     private String personName;
-    private int personAge;
     private int personCash;
     private ArrayList<Product> personShoppingCart;
-
-    public Person(String personName, int personAge, int personCash, ArrayList<Product> personShoppingCart) {
-        this.personName = personName;
-        this.personAge = personAge;
-        this.personCash = personCash;
-        this.personShoppingCart = personShoppingCart;
-    }
 
     public String getPersonName() {
         return personName;
@@ -26,14 +18,6 @@ public class Person {
         } else {
             this.personName = personName;
         }
-    }
-
-    public int getPersonAge() {
-        return personAge;
-    }
-
-    public void setPersonAge(int personAge) {
-        this.personAge = personAge;
     }
 
     public int getPersonCash() {
@@ -54,9 +38,6 @@ public class Person {
 
     public void setPersonShoppingCart(ArrayList<Product> personShoppingCart) {
         this.personShoppingCart = personShoppingCart;
-    }
-
-    public Person() {
     }
 
     @Override
@@ -83,7 +64,6 @@ public class Person {
     public String toString() {
         return "Покупатель {" +
                 "Имя покупателя: '" + personName + '\'' +
-                ", Возраст покупателя: " + personAge +
                 ", Деньги покупателя: " + personCash +
                 ", Корзина с покупками: " + personShoppingCart +
                 '}';
