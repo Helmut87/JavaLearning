@@ -1,13 +1,14 @@
 package repositories;
 
 import exceptions.DataAccessException;
+import exceptions.InvalidUserDataException;
 import exceptions.UserNotFoundException;
 import model.User;
 
 import java.util.List;
 
 public interface UsersRepository {
-    void create(User user); // Создание пользователя и запись его в файл
+    void create(User user) throws InvalidUserDataException, DataAccessException; // Создание пользователя и запись его в файл
 
     User findById(String id) throws UserNotFoundException, DataAccessException; // Поиск пользователя в файле по идентификатору
 

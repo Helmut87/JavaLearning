@@ -1,4 +1,5 @@
 import exceptions.DataAccessException;
+import exceptions.InvalidUserDataException;
 import exceptions.UserNotFoundException;
 import model.User;
 import repositories.UsersRepository;
@@ -17,11 +18,21 @@ public class UsersRepositoryFileImpl implements UsersRepository {
     }
 
     @Override
-    public void create(User user) {
+    public void create(User user) throws InvalidUserDataException, DataAccessException {
+        validateUser(user); // Вынесение проверок в отдельный метод
         try {
             fileDataManager.appendLine(userToString(user));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DataAccessException("Ошибка при записи пользователя в файл", e);
+        }
+    }
+
+    private void validateUser(User user) throws InvalidUserDataException {
+        if (user.getId() == null || user.getId().isEmpty()) {
+            throw new InvalidUserDataException("ID пользователя не может быть пустым");
+        }
+        if (user.getLogin() == null || user.getLogin().isEmpty()) {
+            throw new InvalidUserDataException("Логин не может быть пустым");
         }
     }
 
@@ -107,7 +118,7 @@ public class UsersRepositoryFileImpl implements UsersRepository {
     private String userToString(User user) {
         return user.getId() + "|" + user.getDateAdded() + "|" + user.getLogin() + "|" + user.getPassword() + "|" +
                 user.getConfirmPassword() + "|" + user.getLastName() + "|" + user.getFirstName() + "|" +
-                user.getPatronymic() + "|" + user.getAge() + "|" + user.isWorker();
+                user.getMiddleName() + "|" + user.getAge() + "|" + user.isWorker();
     }
 
     private User stringToUser(String str) {

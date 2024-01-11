@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <javafaker.version>1.0.2</javafaker.version>
         <lombok.version>1.18.26</lombok.version>
+        <junit.version>5.9.2</junit.version>
     </properties>
 
     <dependencies>
@@ -26,6 +27,12 @@
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

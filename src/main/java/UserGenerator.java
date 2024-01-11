@@ -14,10 +14,10 @@ public class UserGenerator {
         String password = faker.internet().password();
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
-        String patronymic = faker.name().firstName();
+        String middleName = faker.name().firstName();
         int age = faker.number().numberBetween(16, 99);
         boolean isWorker = faker.random().nextBoolean();
 
-        return new User(id, dateAdded, login, password, password, lastName, firstName, patronymic, age, isWorker);
+        return new User(id, dateAdded, login, password, password, lastName, firstName, middleName, age, isWorker);
     }
 }

@@ -1,4 +1,5 @@
 import exceptions.DataAccessException;
+import exceptions.InvalidUserDataException;
 import exceptions.UserNotFoundException;
 import model.User;
 import repositories.UsersRepository;
@@ -8,7 +9,7 @@ import java.util.List;
 public class App {
     public static final int NUMBER_OF_USERS = 10;
 
-    public static void main(String[] args) throws UserNotFoundException, DataAccessException {
+    public static void main(String[] args) throws UserNotFoundException, DataAccessException, InvalidUserDataException {
         UsersRepository usersRepository = new UsersRepositoryFileImpl();
 
         // Генерация и добавление пользователей в репозиторий

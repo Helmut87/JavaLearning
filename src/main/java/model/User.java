@@ -10,7 +10,7 @@ public class User {
     private String confirmPassword;
     private String lastName;
     private String firstName;
-    private String patronymic;
+    private String middleName;
     private Integer age;
     private boolean isWorker;
 
@@ -24,7 +24,7 @@ public class User {
         this.confirmPassword = confirmPassword;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.patronymic = patronymic;
+        this.middleName = patronymic;
         this.age = age;
         this.isWorker = isWorker;
     }
@@ -86,12 +86,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public Integer getAge() {
@@ -110,20 +110,19 @@ public class User {
         isWorker = worker;
     }
 
-    // toString for easy debugging and logging
     @Override
     public String toString() {
-        return "User{" +
+        return "Пользователь{" +
                 "id='" + id + '\'' +
-                ", dateAdded=" + dateAdded +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", age=" + age +
-                ", isWorker=" + isWorker +
+                ", дата добавления=" + dateAdded +
+                ", логин='" + login + '\'' +
+                ", пароль='" + password + '\'' +
+                ", подтверждение пароля='" + confirmPassword + '\'' +
+                ", фамилия='" + lastName + '\'' +
+                ", имя='" + firstName + '\'' +
+                ", отчество='" + middleName + '\'' +
+                ", возраст=" + age +
+                ", сотрудник предприятия=" + isWorker +
                 '}';
     }
 }
