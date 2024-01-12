@@ -21,7 +21,7 @@ public class DiscountProduct {
 
     public void setDiscountAmount(int discountAmount) {
         if (discountAmount <= 0) {
-            throw new IllegalArgumentException("Ðàçìåð ñêèäêè äîëæåí áûòü ïîëîæèòåëüíûì ÷èñëîì.");
+            throw new IllegalArgumentException("Ð Ð°Ð·Ð¼ÐµÑ€ ÑÐºÐ¸Ð´ÐºÐ¸ Ð´Ð¾Ð»Ð¶ÐµÐ½ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼ Ñ‡Ð¸ÑÐ»Ð¾Ð¼.");
         }
         this.discountAmount = discountAmount;
     }
