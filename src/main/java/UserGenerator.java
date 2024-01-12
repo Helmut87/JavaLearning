@@ -10,7 +10,7 @@ public class UserGenerator {
     public static User generateRandomUser() {
         String id = UUID.randomUUID().toString();
         LocalDateTime dateAdded = LocalDateTime.now();
-        String login = "user" + faker.number().numberBetween(999,99999);
+        String login = "user" + faker.number().numberBetween(999, 99999);
         String password = faker.internet().password();
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
