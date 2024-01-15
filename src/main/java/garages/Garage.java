@@ -29,7 +29,7 @@ public class Garage {
         parkedCars.add(car);
     }
 
-    // Удалить автомобиль из гаража
+    // РЈРґР°Р»РёС‚СЊ Р°РІС‚РѕРјРѕР±РёР»СЊ РёР· РіР°СЂР°Р¶Р°
     public void unParkCar(Car car) {
         if (parkedCars != null) {
             parkedCars.remove(car);

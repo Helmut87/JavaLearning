@@ -21,6 +21,12 @@ public class Car {
         this.carAccelerate = carAccelerate;
         this.carSuspension = carSuspension;
         this.carDurability = carDurability;
+        if (carYearOfProduction < 1886 || carYearOfProduction > java.time.Year.now().getValue()) {
+            throw new IllegalArgumentException("Invalid year of production");
+        }
+        if (carEnginePower < 0 || carAccelerate < 0 || carSuspension < 0 || carDurability < 0) {
+            throw new IllegalArgumentException("Car specifications must be non-negative");
+        }
     }
 
     public String getCarBrand() {
@@ -81,13 +87,13 @@ public class Car {
 
     @Override
     public String toString() {
-        return "ìàðêà = '" + carBrand + '\'' +
-                ", ìîäåëü = '" + carModel + '\'' +
-                ", ãîä âûïóñêà = " + carYearOfProduction + " ã" +
-                ", ìîùíîñòü äâèãàòåëÿ = " + carEnginePower + " ë/ñ" +
-                ", ðàçãîí = " + carAccelerate + " ñ" +
-                ", ïîäâåñêà = " + carSuspension + " ñì" +
-                ", äîëãîâå÷íîñòü = " + carDurability + " %";
+        return "Ð¼Ð°Ñ€ÐºÐ° = '" + carBrand + '\'' +
+                ", Ð¼Ð¾Ð´ÐµÐ»ÑŒ = '" + carModel + '\'' +
+                ", Ð³Ð¾Ð´ Ð²Ñ‹Ð¿ÑƒÑÐºÐ° = " + carYearOfProduction + " Ð³" +
+                ", Ð¼Ð¾Ñ‰Ð½Ð¾ÑÑ‚ÑŒ Ð´Ð²Ð¸Ð³Ð°Ñ‚ÐµÐ»Ñ = " + carEnginePower + " Ð»/Ñ" +
+                ", Ñ€Ð°Ð·Ð³Ð¾Ð½ = " + carAccelerate + " Ñ" +
+                ", Ð¿Ð¾Ð´Ð²ÐµÑÐºÐ° = " + carSuspension + " ÑÐ¼" +
+                ", Ð´Ð¾Ð»Ð³Ð¾Ð²ÐµÑ‡Ð½Ð¾ÑÑ‚ÑŒ = " + carDurability + " %";
     }
 }
 
