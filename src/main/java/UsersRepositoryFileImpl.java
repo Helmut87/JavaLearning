@@ -34,6 +34,12 @@ public class UsersRepositoryFileImpl implements UsersRepository {
         if (user.getLogin() == null || user.getLogin().isEmpty()) {
             throw new InvalidUserDataException("Логин не может быть пустым");
         }
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new InvalidUserDataException("Пароль не может быть пустым");
+        }
+        if (user.getAge() < 18) {
+            throw new InvalidUserDataException("Возраст пользователя должен быть не меньше 18 лет");
+        }
     }
 
     @Override
