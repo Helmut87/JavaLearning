@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import repositories.UsersRepository;
 
@@ -61,6 +62,15 @@ public class UsersRepositoryFileImplTest {
     @ParameterizedTest
     @MethodSource("provideInvalidUsers")
     void testCreateUserWithInvalidData(User user, String expectedMessage) {
+        InvalidUserDataException exception = assertThrows(InvalidUserDataException.class, () -> usersRepository.create(user));
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/invalid_users.csv", numLinesToSkip = 1)
+    void testCreateUserWithInvalidDataFromCsv(String id, String login, String password, String lastName, String firstName, String patronymic, Integer age, Boolean isWorker, String expectedMessage) {
+        UsersRepository usersRepository = new UsersRepositoryFileImpl();
+        User user = new User(id, LocalDateTime.now(), login, password, password, lastName, firstName, patronymic, age, isWorker);
         InvalidUserDataException exception = assertThrows(InvalidUserDataException.class, () -> usersRepository.create(user));
         assertEquals(expectedMessage, exception.getMessage());
     }
