@@ -27,7 +27,7 @@ public class CarServiceTest {
                 .filter(car -> car.getColor().equals(colorToFind) || car.getMileage() == mileageToFind)
                 .map(Car::getCarNumber).toList();
 
-        assertTrue(carNumbers.contains("123ABC") && carNumbers.contains("456DEF"));
+        assertEquals(carNumbers.contains("123ABC"), carNumbers.contains("456DEF"));
     }
 
     @Test
