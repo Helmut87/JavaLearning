@@ -15,7 +15,7 @@ public class CarExceptionTests {
     @Test
     public void testNumberFormatException() {
         assertThrows(NumberFormatException.class, () -> {
-            BufferedReader reader = new BufferedReader(new FileReader("src/resources/race_parameters_negative.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/race_parameters_negative.txt"));
             Integer.parseInt(reader.readLine());
         });
     }
