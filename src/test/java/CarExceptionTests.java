@@ -19,4 +19,5 @@ public class CarExceptionTests {
             Integer.parseInt(reader.readLine());
         });
     }
+
 }
