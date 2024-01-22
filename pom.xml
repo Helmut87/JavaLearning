@@ -13,6 +13,9 @@
         <maven.compiler.target>17</maven.compiler.target>
         <javafaker.version>1.0.2</javafaker.version>
         <lombok.version>1.18.26</lombok.version>
+        <junit-jupiter-engine.version>5.9.2</junit-jupiter-engine.version>
+        <mockito-core.version>5.2.0</mockito-core.version>
+        <junit-jupiter-api.version>5.9.2</junit-jupiter-api.version>
     </properties>
 
     <dependencies>
@@ -24,9 +27,28 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>${lombok.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter-api.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 
 </project>
