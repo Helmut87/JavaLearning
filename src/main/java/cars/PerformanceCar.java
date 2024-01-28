@@ -1,17 +1,14 @@
 package cars;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 
+@Getter
+@Setter
 public class PerformanceCar extends Car {
     private ArrayList<String> addOns;
-
-    public ArrayList<String> getAddOns() {
-        return addOns;
-    }
-
-    public void setAddOns(ArrayList<String> addOns) {
-        this.addOns = addOns;
-    }
 
     public PerformanceCar(String carBrand, String carModel, int carYearOfProduction, int carEnginePower, int carAccelerate, int carSuspension, int carDurability) {
         super(carBrand, carModel, carYearOfProduction, carEnginePower, carAccelerate, carSuspension, carDurability);
@@ -22,13 +19,13 @@ public class PerformanceCar extends Car {
 
     @Override
     public String toString() {
-        return "марка = '" + getCarBrand() + '\'' +
-                ", модель = '" + getCarModel() + '\'' +
-                ", год выпуска = " + getCarYearOfProduction() + " г" +
-                ", мощность двигателя = " + getCarEnginePower() + " л/с" +
-                ", разгон = " + getCarAccelerate() + " с" +
-                ", подвеска = " + getCarSuspension() + " см" +
-                ", долговечность = " + getCarDurability() + " %" +
-                ", доп. опции = " + addOns;
+        return "РјР°СЂРєР° = '" + getCarBrand() + '\'' +
+                ", РјРѕРґРµР»СЊ = '" + getCarModel() + '\'' +
+                ", РіРѕРґ РІС‹РїСѓСЃРєР° = " + getCarYearOfProduction() + " Рі" +
+                ", РјРѕС‰РЅРѕСЃС‚СЊ РґРІРёРіР°С‚РµР»СЏ = " + getCarEnginePower() + " Р»/СЃ" +
+                ", СЂР°Р·РіРѕРЅ = " + getCarAccelerate() + " СЃ" +
+                ", РїРѕРґРІРµСЃРєР° = " + getCarSuspension() + " СЃРј" +
+                ", РґРѕР»РіРѕРІРµС‡РЅРѕСЃС‚СЊ = " + getCarDurability() + " %" +
+                ", РґРѕРї. РѕРїС†РёРё = " + addOns;
     }
 }

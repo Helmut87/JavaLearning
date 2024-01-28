@@ -69,7 +69,7 @@ public class App {
         System.out.println(casualRace);
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/resources/race_parameters.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/race_parameters.txt"));
             int length = Integer.parseInt(reader.readLine());
             String route = reader.readLine();
             int prizePool = Integer.parseInt(reader.readLine());
