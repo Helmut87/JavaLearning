@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Car {
+    private String id;
     private String carBrand;
     private String carModel;
     private int carYearOfProduction;
@@ -20,7 +21,8 @@ public class Car {
 
     @Override
     public String toString() {
-        return "марка = '" + carBrand + '\'' +
+        return "id = " + id +
+                ", марка = '" + carBrand + '\'' +
                 ", модель = '" + carModel + '\'' +
                 ", год выпуска = " + carYearOfProduction + " г" +
                 ", мощность двигателя = " + carEnginePower + " л/с" +
