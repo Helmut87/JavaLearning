@@ -16,6 +16,10 @@ public class CarRepositoryImpl implements CarRepository {
         this.fileDataManager = new FileDataManager(FILE_NAME);
     }
 
+    public CarRepositoryImpl(FileDataManager fileDataManager) {
+        this.fileDataManager = fileDataManager;
+    }
+
     @Override
     public void create(Car car) throws InvalidCarDataException, DataAccessException {
         validateCar(car); // Вынесение проверок в отдельный метод
