@@ -13,8 +13,9 @@
         <maven.compiler.target>17</maven.compiler.target>
         <javafaker.version>1.0.2</javafaker.version>
         <lombok.version>1.18.26</lombok.version>
-        <junit.version>5.9.2</junit.version>
-        <junit-jupiter-params.version>5.9.2</junit-jupiter-params.version>
+        <junit-jupiter-engine.version>5.9.2</junit-jupiter-engine.version>
+        <mockito-core.version>5.2.0</mockito-core.version>
+        <junit-jupiter-api.version>5.9.2</junit-jupiter-api.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
     </properties>
 
@@ -27,26 +28,30 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>${lombok.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit-jupiter-params.version}</version>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter-engine.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
     <build>
-        <finalName>homework016</finalName>
+        <finalName>homework016Add</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -54,7 +59,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>App</mainClass>
+                            <mainClass>BonusService</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
