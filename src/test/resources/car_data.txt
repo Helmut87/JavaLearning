@@ -1,0 +1,2 @@
+1|Ferrari|F150|1990|400|3|7|3
+2|Lamborghini|Diablo|1995|492|4|6|4

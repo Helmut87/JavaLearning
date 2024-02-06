@@ -67,9 +67,5 @@ public class App {
         for (Car parkedCar : garage.getParkedCars()) {
             System.out.println(parkedCar);
         }
-//        // Удаление всех авто
-//        carRepository.deleteAll();
-//        carRepository.findAll().forEach(System.out::println);
-
     }
 }

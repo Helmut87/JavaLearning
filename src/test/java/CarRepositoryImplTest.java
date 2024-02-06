@@ -1,24 +1,25 @@
 import cars.Car;
-import com.github.javafaker.Faker;
 import exceptions.CarNotFoundException;
 import exceptions.DataAccessException;
 import exceptions.InvalidCarDataException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,12 +35,35 @@ class CarRepositoryImplTest {
         carRepository = new CarRepositoryImpl(fileDataManager);
     }
 
+    private List<Car> loadCarsFromFile(String fileName) {
+        try {
+            URL resource = getClass().getClassLoader().getResource(fileName);
+            if (resource == null) {
+                throw new IllegalArgumentException("file not found! " + fileName);
+            } else {
+                Path path = Paths.get(resource.toURI());
+                List<String> lines = Files.readAllLines(path);
+                return lines.stream().map(this::stringToCar).collect(Collectors.toList());
+            }
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException("Failed to load cars from file", e);
+        }
+    }
+
+    private Car stringToCar(String str) {
+        String[] parts = str.split("\\|");
+        return new Car(parts[0], parts[1], parts[2], Integer.parseInt(parts[3]), Integer.parseInt(parts[4]),
+                Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+    }
+
     @Test
-    void testCreateValidCar() throws IOException, InvalidCarDataException, DataAccessException {
-        Car car = new Car("1", "Ferrari", "F150", 1990, 400, 3, 7, 3);
+    void testCreateValidCar() throws IOException, InvalidCarDataException, DataAccessException, URISyntaxException {
+        List<Car> cars = loadCarsFromFile("car_data.txt");
+        Car car = cars.get(0);
         carRepository.create(car);
         verify(fileDataManager).appendLine("1|Ferrari|F150|1990|400|3|7|3");
     }
+
 
     @Test
     void testCreateInvalidCar() {
