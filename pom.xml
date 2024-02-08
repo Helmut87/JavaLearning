@@ -14,7 +14,7 @@
         <javafaker.version>1.0.2</javafaker.version>
         <lombok.version>1.18.26</lombok.version>
         <junit.version>5.9.2</junit.version>
-        <junit-jupiter-params.version>5.7.0</junit-jupiter-params.version>
+        <junit-jupiter-params.version>5.9.2</junit-jupiter-params.version>
     </properties>
 
     <dependencies>
