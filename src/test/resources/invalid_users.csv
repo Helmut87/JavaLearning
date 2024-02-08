@@ -1,4 +1,0 @@
-id,login,password,lastName,firstName,patronymic,age,isWorker,expectedMessage
-,testuser,password,Test,User,,30,true,ID пользователя не может быть пустым
-4,testuser4,,Test,User,,30,true,Пароль не может быть пустым
-5,testuser5,password,Test,User,,17,true,Возраст пользователя должен быть не меньше 18 лет
