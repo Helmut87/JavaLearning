@@ -1,26 +1,19 @@
 package garages;
 
 import cars.Car;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Garage {
     private ArrayList<Car> parkedCars;
-
-    public Garage() {
-    }
-
-    public Garage(ArrayList<Car> parkedCars) {
-        this.parkedCars = parkedCars;
-    }
-
-    public ArrayList<Car> getParkedCars() {
-        return parkedCars;
-    }
-
-    public void setParkedCars(ArrayList<Car> parkedCars) {
-        this.parkedCars = parkedCars;
-    }
 
     public void parkCar(Car car) {
         if (parkedCars == null) {
@@ -29,7 +22,7 @@ public class Garage {
         parkedCars.add(car);
     }
 
-    // Удалить автомобиль из гаража
+    // РЈРґР°Р»РёС‚СЊ Р°РІС‚РѕРјРѕР±РёР»СЊ РёР· РіР°СЂР°Р¶Р°
     public void unParkCar(Car car) {
         if (parkedCars != null) {
             parkedCars.remove(car);
