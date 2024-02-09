@@ -1,5 +1,6 @@
 -- Создание таблицы "Товар"
-CREATE TABLE IF NOT EXISTS Product
+CREATE TABLE
+    IF NOT EXISTS Product
 (
     id          SERIAL PRIMARY KEY,
     description TEXT           NOT NULL,
@@ -51,7 +52,8 @@ VALUES ('John Doe'),
        ('Sophia Anderson');
 
 -- Создание таблицы "Заказ"
-CREATE TABLE IF NOT EXISTS "Order"
+CREATE TABLE
+    IF NOT EXISTS "Order"
 (
     id          SERIAL PRIMARY KEY,
     product_id  INTEGER NOT NULL,

@@ -1,5 +1,6 @@
 -- 1. Чтение данных: Получить список всех продуктов с их ценами и количеством на складе
-SELECT description, price, quantity FROM Product;
+SELECT description, price, quantity
+FROM Product;
 
 -- 2. Чтение данных: Получить информацию о заказах для покупателя с id 1 (включая описание товара, количество и дату заказа)
 SELECT o.order_date, p.description, o.quantity
@@ -8,13 +9,17 @@ FROM "Order" o
 WHERE o.customer_id = 1;
 
 -- 3. Изменение данных: Обновить цену продукта с id 5 на 5.99
-UPDATE Product SET price = 5.99 WHERE id = 5;
+UPDATE Product
+SET price = 5.99
+WHERE id = 5;
 
 -- 4. Изменение данных: Увеличить количество всех товаров на складе на 10 единиц
-UPDATE Product SET quantity = quantity + 10;
+UPDATE Product
+SET quantity = quantity + 10;
 
 -- 5. Удаление данных: Удалить заказ с id 10
-DELETE FROM "Order" WHERE id = 10;
+DELETE FROM "Order"
+       WHERE id = 10;
 
 -- 6. Чтение данных: Получить список покупателей и количество сделанных ими заказов
 SELECT c.name, COUNT(o.id) AS orders_count
